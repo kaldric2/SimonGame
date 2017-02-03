@@ -1,15 +1,7 @@
-/*
-    https://s3.amazonaws.com/freecodecamp/simonSound1.mp3
-    https://s3.amazonaws.com/freecodecamp/simonSound2.mp3
-    https://s3.amazonaws.com/freecodecamp/simonSound3.mp3
-    https://s3.amazonaws.com/freecodecamp/simonSound4.mp3
-*/
-
-
 // Create an array to store user button presses
 var gameArray = [];
 var btnArray = [];
-var btnSounds = ["audio0", "audio1", "audio2", "audio3"];
+var btnSounds = ["audio0", "audio1", "audio2", "audio3", "audio4"];
 var colorClasses = [
                         "btnGreen",
                         "btnRed",
@@ -58,7 +50,7 @@ function lightButton(isCorrect, i) {
 function playSound(isCorrect, idx) {
     var sound;
     if (!isCorrect) {
-        sound = document.getElementById(btnSounds[idx]);
+        sound = document.getElementById(btnSounds[4]);
         sound.play();
         return;
     } else {
@@ -82,7 +74,7 @@ function wrongAnswer() {
     if (strictMode) {
         roundNum = 1;
     }
-    cpuShowSequence();
+    setTimeout(cpuShowSequence, 1000);
 }
 
 function btnClick(btn) {
@@ -91,15 +83,19 @@ function btnClick(btn) {
     var isCorrect = checkSelection(seqNum, idx);
     lightButton(isCorrect, idx);
 
-    if (seqNum == roundNum - 1) {
-        if (isCorrect & roundNum < 20) { roundNum++; }
-        seqNum = -1;
-        setTimeout(cpuShowSequence, 1000);
+    if (isCorrect) {
+        if (seqNum == roundNum - 1 && roundNum < 20) {
+            roundNum++;
+            seqNum = -1;
+            setTimeout(cpuShowSequence, 1000);
+        }
+    } else if (!isCorrect) {
+        wrongAnswer();
     }
 }
 
 function initGame() {
-    roundNum = 4;
+    roundNum = 1;
     createGameArray();
     cpuShowSequence();
 }

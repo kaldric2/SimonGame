@@ -18,6 +18,14 @@
     to { background-color: rgba(0, 255, 0, 0); }
 }
 
+.score {
+    font-size: 3em;
+    text-align: center;
+    position: fixed;
+    top: 44%;
+    left: 47.5%;
+}
+
 .buttons {
     margin-top: 150px;
 }
