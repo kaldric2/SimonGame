@@ -1,3 +1,23 @@
+@keyframes yellow {
+    from { background-color: rgba(255, 255, 0, 1); }
+    to { background-color: rgba(255, 255, 0, 0); }
+}
+
+@keyframes blue {
+    from { background-color: rgba(0, 0, 255, 1); }
+    to { background-color: rgba(0, 0, 255, 0); }
+}
+
+@keyframes red {
+    from { background-color: rgba(255, 0, 0, 1); }
+    to { background-color: rgba(255, 0, 0, 0); }
+}
+
+@keyframes green {
+    from { background-color: rgba(0, 255, 0, 1); }
+    to { background-color: rgba(0, 255, 0, 0); }
+}
+
 .buttons {
     margin-top: 150px;
 }
@@ -17,4 +37,24 @@
     justify-content: center;
     border-radius: 50%;
     border: 2px solid #111;
+}
+
+.btnGreen {
+    animation-name: green;
+    animation-duration: 1s;
+}
+
+.btnRed {
+    animation-name: red;
+    animation-duration: 1s;
+}
+
+.btnYellow {
+    animation-name: yellow;
+    animation-duration: 1s;
+}
+
+.btnBlue  {
+    animation-name: blue;
+    animation-duration: 1s;
 }

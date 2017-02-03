@@ -15,6 +15,12 @@ var btnSounds = [
                     "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3",
                     "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"
                 ];
+var colorClasses = [
+                        "btnGreen",
+                        "btnRed",
+                        "btnYellow",
+                        "btnBlue"
+                    ];
 var seqNum = -1;
 var roundNum = 1;
 var strictMode = 0;
@@ -22,6 +28,7 @@ var strictMode = 0;
 // Computer functions
 function createGameArray() {
     for (var i = 0; i < 20; i++) {
+        console.debug(gameArray);
         gameArray.push(Math.floor(Math.random() * 4));
     }
 }
@@ -44,22 +51,24 @@ function cpuShowSequence() {
 // Shared functions
 function lightButton(isCorrect, i) {
     // TODO: light up the button at btnArray[i]
-    btnArray[i].classList.add("btnLit");
+    btnArray[i].classList.add(colorClasses[i]);
     playSound(isCorrect, i);
-    btnArray[i].classList.remove("btnLit");
+    setTimeout(()=>{btnArray[i].classList.remove(colorClasses[i])},1000);
 }
 
 function playSound(isCorrect, idx) {
     if (!isCorrect) {
         // TODO: play lose sound
+        return;
     } else {
         // TODO: play btnSounds[idx]
+        return;
     }
 }
 
 
 // User functions
-function isCorrect(s, i) {
+function checkSelection(s, i) {
     if (i != gameArray[s]) {
         return false;
     }
@@ -76,8 +85,8 @@ function wrongAnswer() {
 
 function btnClick(btn) {
     seqNum++;
-    var idx = btnArray.indexOf(btn);
-    var isCorrect = isCorrect(seqNum, idx);
+    var idx = btnArray.indexOf(btn.target);
+    var isCorrect = checkSelection(seqNum, idx);
     lightButton(isCorrect, idx);
 
     if (seqNum == roundNum-1) {
@@ -89,10 +98,10 @@ function btnClick(btn) {
 
 document.onreadystatechange = function () {
   if (document.readyState === "complete") {
-    btnArray.push = document.getElementsByClassName("btn0");
-    btnArray.push = document.getElementsByClassName("btn1");
-    btnArray.push = document.getElementsByClassName("btn2");
-    btnArray.push = document.getElementsByClassName("btn3");
+    btnArray.push(document.getElementsByClassName("btn0")[0]);
+    btnArray.push(document.getElementsByClassName("btn1")[0]);
+    btnArray.push(document.getElementsByClassName("btn2")[0]);
+    btnArray.push(document.getElementsByClassName("btn3")[0]);
 
     btnArray.forEach(function(e) {
         document.addEventListener("click", btnClick);
