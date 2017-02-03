@@ -9,13 +9,7 @@
 // Create an array to store user button presses
 var gameArray = [];
 var btnArray = [];
-var btnSounds = [];
-var soundSources = [
-                    "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3",
-                    "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3",
-                    "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3",
-                    "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"
-                ];
+var btnSounds = ["audio0", "audio1", "audio2", "audio3"];
 var colorClasses = [
                         "btnGreen",
                         "btnRed",
@@ -29,20 +23,18 @@ var strictMode = 0;
 // Computer functions
 function createGameArray() {
     for (var i = 0; i < 20; i++) {
-        // gameArray.push(Math.floor(Math.random() * 4));
-        gameArray.push(1);
+        gameArray.push(Math.floor(Math.random() * 4));
     }
     console.debug(gameArray);
 }
 
 function calculateTimeDelay() {
-    // var timeDelay = 0;
-    // if (roundNum < 5) { timeDelay = 1000; }
-    // else if (roundNum < 9) { timeDelay = 750; }
-    // else if (roundNum < 13) { timeDelay = 500; }
-    // else { timeDelay = 250; }
-    // return timeDelay;
-    return 250;
+    var timeDelay = 0;
+    if (roundNum < 5) { timeDelay = 1000; }
+    else if (roundNum < 9) { timeDelay = 750; }
+    else if (roundNum < 13) { timeDelay = 500; }
+    else { timeDelay = 250; }
+    return timeDelay;
 }
 
 function doSetTimeout(i) {
@@ -64,11 +56,14 @@ function lightButton(isCorrect, i) {
 }
 
 function playSound(isCorrect, idx) {
+    var sound;
     if (!isCorrect) {
-        // TODO: play lose sound
+        sound = document.getElementById(btnSounds[idx]);
+        sound.play();
         return;
     } else {
-        // TODO: play btnSounds[idx]
+        sound = document.getElementById(btnSounds[idx]);
+        sound.play();
         return;
     }
 }
@@ -99,22 +94,14 @@ function btnClick(btn) {
     if (seqNum == roundNum - 1) {
         if (isCorrect & roundNum < 20) { roundNum++; }
         seqNum = -1;
-        cpuShowSequence();
+        setTimeout(cpuShowSequence, 1000);
     }
 }
 
-function preloadSounds() {
-    btnSounds.foreach(function(e) {
-        audioCtx.decodeAudioData(e).then(function(decodedData) {
-
-        });
-    });
-}
-
 function initGame() {
-    roundNum = 20;
+    roundNum = 4;
     createGameArray();
-    // cpuShowSequence();
+    cpuShowSequence();
 }
 
 document.onreadystatechange = function () {
