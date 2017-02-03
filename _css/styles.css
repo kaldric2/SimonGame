@@ -1,0 +1,20 @@
+.buttons {
+    margin-top: 150px;
+}
+
+.btnRow {
+    display: flex;
+    align-items: center;;
+    justify-content: center;
+}
+
+.btn0, .btn1, .btn2, .btn3 {
+    margin: 5px;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #111;
+}

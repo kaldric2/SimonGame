@@ -74,7 +74,7 @@ function wrongAnswer() {
     cpuShowSequence();
 }
 
-function onBtnPress(btn) {
+function btnClick(btn) {
     seqNum++;
     var idx = btnArray.indexOf(btn);
     var isCorrect = isCorrect(seqNum, idx);
@@ -85,6 +85,20 @@ function onBtnPress(btn) {
         seqNum = -1;
         cpuShowSequence();
     }
+}
+
+document.onreadystatechange = function () {
+  if (document.readyState === "complete") {
+    btnArray.push = document.getElementsByClassName("btn0");
+    btnArray.push = document.getElementsByClassName("btn1");
+    btnArray.push = document.getElementsByClassName("btn2");
+    btnArray.push = document.getElementsByClassName("btn3");
+
+    btnArray.forEach(function(e) {
+        document.addEventListener("click", btnClick);
+    });
+
+  }
 }
 
 // Create a function to compare the user array to the game array upon each subsequent user button press
