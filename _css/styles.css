@@ -41,20 +41,20 @@
 
 .btnGreen {
     animation-name: green;
-    animation-duration: 1s;
+    animation-duration: 0.2s;
 }
 
 .btnRed {
     animation-name: red;
-    animation-duration: 1s;
+    animation-duration: 0.2s;
 }
 
 .btnYellow {
     animation-name: yellow;
-    animation-duration: 1s;
+    animation-duration: 0.2s;
 }
 
 .btnBlue  {
     animation-name: blue;
-    animation-duration: 1s;
+    animation-duration: 0.2s;
 }

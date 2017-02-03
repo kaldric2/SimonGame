@@ -9,7 +9,8 @@
 // Create an array to store user button presses
 var gameArray = [];
 var btnArray = [];
-var btnSounds = [
+var btnSounds = [];
+var soundSources = [
                     "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3",
                     "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3",
                     "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3",
@@ -28,32 +29,38 @@ var strictMode = 0;
 // Computer functions
 function createGameArray() {
     for (var i = 0; i < 20; i++) {
-        console.debug(gameArray);
-        gameArray.push(Math.floor(Math.random() * 4));
+        // gameArray.push(Math.floor(Math.random() * 4));
+        gameArray.push(1);
     }
+    console.debug(gameArray);
 }
 
 function calculateTimeDelay() {
-    var timeDelay = 0;
-    if (roundNum < 5) { timeDelay = 1000; }
-    else if (roundNum < 9) { timeDelay = 750; }
-    else if (roundNum < 13) { timeDelay = 500; }
-    else { timeDelay = 250; }
-    return timeDelay;
+    // var timeDelay = 0;
+    // if (roundNum < 5) { timeDelay = 1000; }
+    // else if (roundNum < 9) { timeDelay = 750; }
+    // else if (roundNum < 13) { timeDelay = 500; }
+    // else { timeDelay = 250; }
+    // return timeDelay;
+    return 250;
+}
+
+function doSetTimeout(i) {
+    var delay = calculateTimeDelay() * i;
+    setTimeout( () => { lightButton(true, gameArray[i]); }, delay);
 }
 
 function cpuShowSequence() {
     for (let i = 0; i < roundNum; i++) {
-        setTimeout(lightButton(true, i), calculateTimeDelay());
+        doSetTimeout(i);
     }
 }
 
 // Shared functions
 function lightButton(isCorrect, i) {
-    // TODO: light up the button at btnArray[i]
     btnArray[i].classList.add(colorClasses[i]);
     playSound(isCorrect, i);
-    setTimeout(()=>{btnArray[i].classList.remove(colorClasses[i])},1000);
+    setTimeout( () => { btnArray[i].classList.remove(colorClasses[i]); }, 225);
 }
 
 function playSound(isCorrect, idx) {
@@ -89,11 +96,25 @@ function btnClick(btn) {
     var isCorrect = checkSelection(seqNum, idx);
     lightButton(isCorrect, idx);
 
-    if (seqNum == roundNum-1) {
+    if (seqNum == roundNum - 1) {
         if (isCorrect & roundNum < 20) { roundNum++; }
         seqNum = -1;
         cpuShowSequence();
     }
+}
+
+function preloadSounds() {
+    btnSounds.foreach(function(e) {
+        audioCtx.decodeAudioData(e).then(function(decodedData) {
+
+        });
+    });
+}
+
+function initGame() {
+    roundNum = 20;
+    createGameArray();
+    // cpuShowSequence();
 }
 
 document.onreadystatechange = function () {
@@ -107,8 +128,10 @@ document.onreadystatechange = function () {
         document.addEventListener("click", btnClick);
     });
 
+    initGame();
+
   }
-}
+};
 
 // Create a function to compare the user array to the game array upon each subsequent user button press
 // Trigger button color animation on press or computer move
