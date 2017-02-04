@@ -18,6 +18,16 @@
     to { background-color: rgba(0, 255, 0, 0); }
 }
 
+@keyframes whiteOn {
+    from { background-color: rgba(100, 100, 100, 0.5); }
+    to { background-color: rgba(200, 200, 200, 1); }
+}
+
+@keyframes whiteOff {
+    from { background-color: rgba(200, 200, 200, 1); }
+    to { background-color: rgba(100, 100, 100, 0.5); }
+}
+
 .score {
     font-size: 3em;
     font-family: -apple-system, BlinkMacSystemFont,
@@ -73,4 +83,53 @@
 .btnBlue  {
     animation-name: blue;
     animation-duration: 0.2s;
+}
+
+.btnWhiteOn  {
+    animation-name: whiteOn;
+    animation-duration: 1s;
+    background-color: rgba(200, 200, 200, 1);
+}
+
+.btnWhiteOff  {
+    animation-name: whiteOff;
+    animation-duration: 1s;
+    background-color: rgba(100, 100, 100, 0.5);
+}
+
+.controls {
+    display: flex;
+    align-items:flex-start;
+    justify-content: center;
+    min-height: 50px;
+    margin-top: 5px;
+}
+
+.strict, .restart {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    border-radius: 50%;
+    border: 2px solid #111;
+}
+
+.strictLabel, .restartLabel {
+    text-align: center;
+    font-size: 1em;
+    width: 50px;
+    overflow: visible;
+    font-family: -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+        "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+}
+
+.strictLabel {
+    margin-right: 15px;
+}
+
+.restartLabel {
+    margin-left: 15px;
 }

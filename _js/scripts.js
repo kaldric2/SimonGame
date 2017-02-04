@@ -1,4 +1,5 @@
 // TODO: change seqNum to start at 0?
+// TODO: follow all setTimeouts for loose processes. Add clearTimeouts?
 
 // Create an array to store user button presses
 var gameArray = [];
@@ -106,6 +107,17 @@ function btnClick(btn) {
     }
 }
 
+function toggleStrictMode() {
+    if (strictMode) {
+        document.getElementsByClassName("strict")[0].classList.remove("btnWhiteOn");
+        document.getElementsByClassName("strict")[0].classList.add("btnWhiteOff");
+    } else {
+        document.getElementsByClassName("strict")[0].classList.remove("btnWhiteOff");
+        document.getElementsByClassName("strict")[0].classList.add("btnWhiteOn");
+    }
+    strictMode = !strictMode;
+}
+
 function spinButtons(i) {
     doSetTimeout(0, 0+(1000*i));
     doSetTimeout(1, 250+(1000*i));
@@ -125,8 +137,15 @@ function fancyShow() {
     [6,7,8].forEach(function(e) { flashButtons(e); });
 }
 
+function restartGame() {
+    roundNum = 1;
+    createGameArray();
+    document.getElementsByClassName("score")[0].innerText = "00";
+    setTimeout(()=>{ cpuShowSequence(); }, 1000);
+}
+
 function initGame(isFancy) {
-    if (isFancy) { fancyShow(); }
+    // if (isFancy) { fancyShow(); }
     roundNum = 1;
     createGameArray();
     setTimeout(()=>{ document.getElementsByClassName("score")[0].innerText =
@@ -144,6 +163,10 @@ document.onreadystatechange = function () {
     btnArray.forEach(function(e) {
         document.addEventListener("click", btnClick);
     });
+
+    document.getElementsByClassName("strict")[0].addEventListener("click", toggleStrictMode);
+
+    document.getElementsByClassName("restart")[0].addEventListener("click", function() { initGame(false); });
 
     initGame(true);
   }
