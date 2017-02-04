@@ -14,6 +14,7 @@ var strictMode = 0;
 
 // Computer functions
 function createGameArray() {
+    if (gameArray.length > 0) {gameArray = [];}
     for (var i = 0; i < 20; i++) {
         gameArray.push(Math.floor(Math.random() * 4));
     }
@@ -21,22 +22,19 @@ function createGameArray() {
 }
 
 function calculateTimeDelay() {
-    var timeDelay = 0;
-    if (roundNum < 5) { timeDelay = 1000; }
-    else if (roundNum < 9) { timeDelay = 750; }
-    else if (roundNum < 13) { timeDelay = 500; }
-    else { timeDelay = 250; }
-    return timeDelay;
+    if (roundNum < 5) { return 1000; }
+    else if (roundNum < 9) { return 750; }
+    else if (roundNum < 13) { return 500; }
+    else { return 250; }
 }
 
-function doSetTimeout(i) {
-    var delay = calculateTimeDelay() * i;
-    setTimeout( () => { lightButton(true, gameArray[i]); }, delay);
+function doSetTimeout(idx, delay) {
+    setTimeout(() => { lightButton(true, idx); }, delay);
 }
 
 function cpuShowSequence() {
     for (let i = 0; i < roundNum; i++) {
-        doSetTimeout(i);
+        doSetTimeout(gameArray[i], calculateTimeDelay()*i);
     }
 }
 
@@ -86,18 +84,46 @@ function btnClick(btn) {
     if (isCorrect) {
         if (seqNum == roundNum - 1 && roundNum < 20) {
             roundNum++;
+            document.getElementsByClassName("score")[0].innerText =
+                (roundNum <= 10) ? "0" + (roundNum - 1) : roundNum - 1;
             seqNum = -1;
             setTimeout(cpuShowSequence, 1000);
+        } else if (seqNum == roundNum - 1 && roundNum == 20) {
+            document.getElementsByClassName("score")[0].innerText =
+                20;
+            initGame();
         }
     } else if (!isCorrect) {
         wrongAnswer();
     }
 }
 
+function spinButtons(i) {
+    doSetTimeout(0, 0+(1000*i));
+    doSetTimeout(1, 250+(1000*i));
+    doSetTimeout(3, 500+(1000*i));
+    doSetTimeout(2, 750+(1000*i));
+}
+
+function flashButtons(i) {
+    doSetTimeout(0, 1000*i);
+    doSetTimeout(1, 1000*i);
+    doSetTimeout(2, 1000*i);
+    doSetTimeout(3, 1000*i);
+}
+
+function fancyShow() {
+    [1,2,3,4,5].forEach(function(e) { spinButtons(e); });
+    [6,7,8].forEach(function(e) { flashButtons(e); });
+}
+
 function initGame() {
+    fancyShow();
     roundNum = 1;
     createGameArray();
-    cpuShowSequence();
+    setTimeout(()=>{ document.getElementsByClassName("score")[0].innerText =
+        "00"; }, 9000);
+    setTimeout(()=>{ cpuShowSequence(); }, 10000);
 }
 
 document.onreadystatechange = function () {
@@ -112,7 +138,6 @@ document.onreadystatechange = function () {
     });
 
     initGame();
-
   }
 };
 
