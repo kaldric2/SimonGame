@@ -1,3 +1,5 @@
+// TODO: change seqNum to start at 0?
+
 // Create an array to store user button presses
 var gameArray = [];
 var btnArray = [];
@@ -76,25 +78,31 @@ function wrongAnswer() {
 }
 
 function btnClick(btn) {
-    seqNum++;
-    var idx = btnArray.indexOf(btn.target);
-    var isCorrect = checkSelection(seqNum, idx);
-    lightButton(isCorrect, idx);
+    try {
+        seqNum++;
+        var idx = btnArray.indexOf(btn.target);
+        var isCorrect = checkSelection(seqNum, idx);
+        lightButton(isCorrect, idx);
 
-    if (isCorrect) {
-        if (seqNum == roundNum - 1 && roundNum < 20) {
-            roundNum++;
-            document.getElementsByClassName("score")[0].innerText =
-                (roundNum <= 10) ? "0" + (roundNum - 1) : roundNum - 1;
-            seqNum = -1;
-            setTimeout(cpuShowSequence, 1000);
-        } else if (seqNum == roundNum - 1 && roundNum == 20) {
-            document.getElementsByClassName("score")[0].innerText =
-                20;
-            initGame();
+        if (isCorrect) {
+            if (seqNum == roundNum - 1 && roundNum < 20) {
+                roundNum++;
+                document.getElementsByClassName("score")[0].innerText =
+                    (roundNum <= 10) ? "0" + (roundNum - 1) : roundNum - 1;
+                seqNum = -1;
+                setTimeout(cpuShowSequence, 1000);
+            } else if (seqNum == roundNum - 1 && roundNum == 20) {
+                document.getElementsByClassName("score")[0].innerText =
+                    20;
+                initGame(true);
+            }
+        } else if (!isCorrect) {
+            wrongAnswer();
         }
-    } else if (!isCorrect) {
-        wrongAnswer();
+    }
+    catch (TypeError) {
+        seqNum--;
+        return;
     }
 }
 
@@ -117,8 +125,8 @@ function fancyShow() {
     [6,7,8].forEach(function(e) { flashButtons(e); });
 }
 
-function initGame() {
-    fancyShow();
+function initGame(isFancy) {
+    if (isFancy) { fancyShow(); }
     roundNum = 1;
     createGameArray();
     setTimeout(()=>{ document.getElementsByClassName("score")[0].innerText =
@@ -137,7 +145,7 @@ document.onreadystatechange = function () {
         document.addEventListener("click", btnClick);
     });
 
-    initGame();
+    initGame(true);
   }
 };
 
