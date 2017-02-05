@@ -1,4 +1,3 @@
-/* TODO: play with borders or box shadows on buttons */
 /* TODO: responsive styling */
 
 html, body {
@@ -7,6 +6,19 @@ html, body {
 
 main {
     color: #ddd;
+}
+
+header {
+    margin-top: 50px;
+    font-size: 4em;
+    text-align: center;
+    font-family: Impact, Verdana, sans-serif;
+}
+
+.reg {
+    font-size: 0.5em;
+    vertical-align: super;
+    font-family: Impact, Verdana, sans-serif;
 }
 
 @keyframes green {
@@ -58,7 +70,7 @@ main {
 }
 
 .buttons {
-    margin-top: 150px;
+    margin-top: 25px;
 }
 
 .btnRow {
