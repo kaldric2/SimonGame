@@ -145,7 +145,7 @@ function restartGame() {
 }
 
 function initGame(isFancy) {
-    // if (isFancy) { fancyShow(); }
+    if (isFancy) { fancyShow(); }
     roundNum = 1;
     createGameArray();
     setTimeout(()=>{ document.getElementsByClassName("score")[0].innerText =
@@ -171,16 +171,3 @@ document.onreadystatechange = function () {
     initGame(true);
   }
 };
-
-// Create a function to compare the user array to the game array upon each subsequent user button press
-// Trigger button color animation on press or computer move
-// Trigger button sound on press or computer move
-
-// Handle errors based on strict/non-strict mode
-
-// Handle start conditions
-    // add buttons to btnArray
-    // add click listeners to buttons that trigger color animation(?) and sound
-
-// Handle reset conditions
-// Display current score (ie. length of last successful sequence in current game)

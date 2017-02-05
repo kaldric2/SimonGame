@@ -209,3 +209,27 @@ header {
 .restartLabel {
     margin-left: 15px;
 }
+
+@media only screen and (max-width: 450px) {
+    .btn0, .btn1, .btn2, .btn3 {
+        width: 140px;
+        height: 140px;
+    }
+
+    header {
+        font-size: 3em;
+    }
+
+    .reg {
+        font-size: 0.5em;
+    }
+
+    .score {
+        font-size: 2em;
+        transform: translateY(-20px);
+    }
+
+    .strictLabel, .restartLabel {
+        font-size: 0.75em;
+    }
+}
