@@ -1,31 +1,44 @@
-@keyframes yellow {
-    from { background-color: rgba(255, 255, 0, 1); }
-    to { background-color: rgba(255, 255, 0, 0); }
+/* TODO: play with borders or box shadows on buttons */
+/* TODO: responsive styling */
+
+html, body {
+    background-color: #111;
 }
 
-@keyframes blue {
-    from { background-color: rgba(0, 0, 255, 1); }
-    to { background-color: rgba(0, 0, 255, 0); }
-}
-
-@keyframes red {
-    from { background-color: rgba(255, 0, 0, 1); }
-    to { background-color: rgba(255, 0, 0, 0); }
+main {
+    color: #ddd;
 }
 
 @keyframes green {
     from { background-color: rgba(0, 255, 0, 1); }
-    to { background-color: rgba(0, 255, 0, 0); }
+    to { background-color: rgba(0, 255, 0, 0.5); }
+}
+
+@keyframes red {
+    from { background-color: rgba(255, 0, 0, 1); }
+    to { background-color: rgba(255, 0, 0, 0.5); }
+}
+
+@keyframes yellow {
+    from { background-color: rgba(255, 255, 0, 1); }
+    to { background-color: rgba(255, 255, 0, 0.5); }
+}
+
+@keyframes blue {
+    from { background-color: rgba(0, 0, 255, 1); }
+    to { background-color: rgba(0, 0, 255, 0.5); }
 }
 
 @keyframes whiteOn {
-    from { background-color: rgba(100, 100, 100, 0.5); }
+    /*from { background-color: rgba(100, 100, 100, 0); }*/
+    from { background-color: rgba(200, 200, 200, 0.2); }
     to { background-color: rgba(200, 200, 200, 1); }
 }
 
 @keyframes whiteOff {
     from { background-color: rgba(200, 200, 200, 1); }
-    to { background-color: rgba(100, 100, 100, 0.5); }
+    to { background-color: rgba(200, 200, 200, 0.2); }
+    /*to { background-color: rgba(100, 100, 100, 0); }*/
 }
 
 .score {
@@ -62,7 +75,31 @@
     align-items: center;;
     justify-content: center;
     border-radius: 50%;
-    border: 2px solid #111;
+    border: 2px solid #555;
+}
+
+.btn0 {
+    background-color: rgba(0, 255, 0, 0.5);
+    border: 2px solid rgba(0, 100, 0, 1);
+    box-shadow: inset 0px 0px 3px 3px rgba(0, 100, 0, 0.75);
+}
+
+.btn1 {
+    background-color: rgba(255, 0, 0, 0.5);
+    border: 2px solid rgba(100, 0, 0, 1);
+    box-shadow: inset 0px 0px 3px 3px rgba(100, 0, 0, 0.75);
+}
+
+.btn2 {
+    background-color: rgba(255, 255, 0, 0.5);
+    border: 2px solid rgba(100, 100, 0, 1);
+    box-shadow: inset 0px 0px 3px 3px rgba(100, 100, 0, 0.75);
+}
+
+.btn3 {
+    background-color: rgba(0, 0, 255, 0.5);
+    border: 2px solid rgba(0, 0, 100, 1);
+    box-shadow: inset 0px 0px 3px 3px rgba(0, 0, 100, 0.75);
 }
 
 .btnGreen {
@@ -85,16 +122,28 @@
     animation-duration: 0.2s;
 }
 
+.strict {
+    background-color: rgba(200, 200, 200, 0.2);
+    border: 2px solid #222;
+    box-shadow: inset 0 0 4px 4px rgba(50, 50, 0, 0.3);
+}
+
 .btnWhiteOn  {
     animation-name: whiteOn;
     animation-duration: 1s;
     background-color: rgba(200, 200, 200, 1);
+    border: 2px solid #333;
+    box-shadow: inset 0 0 4px 4px rgba(125, 125, 125, 0.5), inset 0 0 2px 2px rgba(100, 100, 0, 0.5);
 }
 
 .btnWhiteOff  {
     animation-name: whiteOff;
     animation-duration: 1s;
-    background-color: rgba(100, 100, 100, 0.5);
+    background-color: rgba(200, 200, 200, 0.2);
+    border: 2px solid #222;
+    box-shadow: inset 0 0 4px 4px rgba(50, 50, 0, 0.3);
+    /*background-color: rgba(100, 100, 100, 0);
+    border: 2px solid #eee;*/
 }
 
 .controls {
@@ -112,7 +161,22 @@
     height: 50px;
     display: flex;
     border-radius: 50%;
-    border: 2px solid #111;
+}
+
+.restart {
+    background-color: rgba(200, 200, 200, 0.2);
+    border: 2px solid #222;
+    box-shadow: inset 0 0 4px 4px rgba(40, 40, 50, 0.3);
+}
+
+.restart:hover {
+    background-color: rgba(200, 200, 200, 0.6);
+    box-shadow: inset 0 0 4px 4px rgba(80, 80, 90, 0.5);
+}
+
+.restart:active {
+    background-color: rgba(200, 200, 200, 1);
+    box-shadow: inset 0 0 1px 1px rgba(80, 80, 90, 0.5);
 }
 
 .strictLabel, .restartLabel {

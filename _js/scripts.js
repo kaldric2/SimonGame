@@ -166,7 +166,7 @@ document.onreadystatechange = function () {
 
     document.getElementsByClassName("strict")[0].addEventListener("click", toggleStrictMode);
 
-    document.getElementsByClassName("restart")[0].addEventListener("click", function() { initGame(false); });
+    document.getElementsByClassName("restart")[0].addEventListener("click", restartGame);
 
     initGame(true);
   }
