@@ -63,7 +63,6 @@ function playSound(isCorrect, idx) {
     }
 }
 
-
 // User functions
 function checkSelection(s, i) {
     if (i != gameArray[s]) {
@@ -98,7 +97,7 @@ function btnClick(btn) {
             } else if (seqNum == roundNum - 1 && roundNum == 20) {
                 document.getElementsByClassName("score")[0].innerText =
                     20;
-                initGame(true);
+                initGame(2, 1);
             }
         } else if (!isCorrect) {
             wrongAnswer();
@@ -135,31 +134,41 @@ function flashButtons(i) {
     doSetTimeout(3, 1000*i);
 }
 
-function fancyShow() {
-    [1,2,3,4,5].forEach(function(e) { spinButtons(e); });
-    [6,7,8].forEach(function(e) { flashButtons(e); });
+function fancyShow(first, second) {
+    var firstArr = [], secondArr = [];
+    for (var i = 0; i < first; i++) { firstArr.push(i); }
+    for (var i = first; i < (first + second); i++) { secondArr.push(i); }
+    firstArr.forEach(function(e) { spinButtons(e); });
+    secondArr.forEach(function(e) { flashButtons(e); });
 }
 
 function restartGame() {
+    initGame(0, 1, 0);
+}
+
+function initGame(spins, flashes, delay=1000) {
+    var numOfSpins = spins;
+    var numOfFlashes = flashes;
+    var scoreDelay = delay * (numOfSpins + numOfFlashes);
+
     timeoutsArray.forEach((e)=>{ clearTimeout(e); });
     timeoutsArray = [];
+
+    fancyShow(numOfSpins, numOfFlashes);
+
     roundNum = 1;
     createGameArray();
-    resetScore();
-    timeoutsArray.push(setTimeout(()=>{ cpuShowSequence(); }, 1000));
+    resetScore(scoreDelay);
+    timeoutsArray.push(setTimeout(()=>{ cpuShowSequence(); }, scoreDelay + 500));
 }
 
-function initGame(isFancy) {
-    if (isFancy) { fancyShow(); }
-    roundNum = 1;
-    createGameArray();
-    timeoutsArray.push(setTimeout(()=>{ document.getElementsByClassName("score")[0].innerText =
-        "00"; }, 9000));
-    timeoutsArray.push(setTimeout(()=>{ cpuShowSequence(); }, 10000));
-}
-
-function resetScore() {
-    document.getElementsByClassName("score")[0].innerText = "00";
+function resetScore(delay) {
+    if (delay) {
+        timeoutsArray.push(setTimeout(()=>{ document.getElementsByClassName("score")[0].innerText =
+            "00"; }, delay));
+    } else {
+        document.getElementsByClassName("score")[0].innerText = "00";
+    }
 }
 
 document.onreadystatechange = function () {
@@ -177,6 +186,6 @@ document.onreadystatechange = function () {
 
     document.getElementsByClassName("restart")[0].addEventListener("click", restartGame);
 
-    initGame(true);
+    initGame(5, 3);
   }
 };
