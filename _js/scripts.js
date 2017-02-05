@@ -1,8 +1,10 @@
 // TODO: change seqNum to start at 0?
-// TODO: follow all setTimeouts for loose processes. Add clearTimeouts?
+// TODO: Add clearTimeouts?
+// TODO: check sounds for missed plays
 
 // Create an array to store user button presses
 var gameArray = [];
+var timeoutsArray = [];
 var btnArray = [];
 var btnSounds = ["audio0", "audio1", "audio2", "audio3", "audio4"];
 var colorClasses = [
@@ -32,7 +34,7 @@ function calculateTimeDelay() {
 }
 
 function doSetTimeout(idx, delay) {
-    setTimeout(() => { lightButton(true, idx); }, delay);
+    timeoutsArray.push(setTimeout(() => { lightButton(true, idx); }, delay));
 }
 
 function cpuShowSequence() {
@@ -45,7 +47,7 @@ function cpuShowSequence() {
 function lightButton(isCorrect, i) {
     btnArray[i].classList.add(colorClasses[i]);
     playSound(isCorrect, i);
-    setTimeout( () => { btnArray[i].classList.remove(colorClasses[i]); }, 225);
+    timeoutsArray.push(setTimeout(()=>{ btnArray[i].classList.remove(colorClasses[i]); }, 225));
 }
 
 function playSound(isCorrect, idx) {
@@ -75,7 +77,7 @@ function wrongAnswer() {
     if (strictMode) {
         roundNum = 1;
     }
-    setTimeout(cpuShowSequence, 1000);
+    timeoutsArray.push(setTimeout(cpuShowSequence, 1000));
 }
 
 function btnClick(btn) {
@@ -91,7 +93,7 @@ function btnClick(btn) {
                 document.getElementsByClassName("score")[0].innerText =
                     (roundNum <= 10) ? "0" + (roundNum - 1) : roundNum - 1;
                 seqNum = -1;
-                setTimeout(cpuShowSequence, 1000);
+                timeoutsArray.push(setTimeout(cpuShowSequence, 1000));
             } else if (seqNum == roundNum - 1 && roundNum == 20) {
                 document.getElementsByClassName("score")[0].innerText =
                     20;
@@ -138,19 +140,25 @@ function fancyShow() {
 }
 
 function restartGame() {
+    timeoutsArray.forEach((e)=>{ clearTimeout(e); });
+    timeoutsArray = [];
     roundNum = 1;
     createGameArray();
     document.getElementsByClassName("score")[0].innerText = "00";
-    setTimeout(()=>{ cpuShowSequence(); }, 1000);
+    timeoutsArray.push(setTimeout(()=>{ cpuShowSequence(); }, 1000));
 }
 
 function initGame(isFancy) {
     if (isFancy) { fancyShow(); }
     roundNum = 1;
     createGameArray();
-    setTimeout(()=>{ document.getElementsByClassName("score")[0].innerText =
-        "00"; }, 9000);
-    setTimeout(()=>{ cpuShowSequence(); }, 10000);
+    timeoutsArray.push(setTimeout(()=>{ document.getElementsByClassName("score")[0].innerText =
+        "00"; }, 9000));
+    timeoutsArray.push(setTimeout(()=>{ cpuShowSequence(); }, 10000));
+}
+
+function resetScore() {
+    
 }
 
 document.onreadystatechange = function () {
