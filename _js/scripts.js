@@ -76,6 +76,7 @@ function wrongAnswer() {
     seqNum = -1;
     if (strictMode) {
         roundNum = 1;
+        resetScore();
     }
     timeoutsArray.push(setTimeout(cpuShowSequence, 1000));
 }
@@ -144,7 +145,7 @@ function restartGame() {
     timeoutsArray = [];
     roundNum = 1;
     createGameArray();
-    document.getElementsByClassName("score")[0].innerText = "00";
+    resetScore();
     timeoutsArray.push(setTimeout(()=>{ cpuShowSequence(); }, 1000));
 }
 
@@ -158,7 +159,7 @@ function initGame(isFancy) {
 }
 
 function resetScore() {
-    
+    document.getElementsByClassName("score")[0].innerText = "00";
 }
 
 document.onreadystatechange = function () {
