@@ -1,6 +1,5 @@
-// TODO: change seqNum to start at 0?
-// TODO: Add clearTimeouts?
 // TODO: check sounds for missed plays
+// TODO: make the background into a radial gradient to suggest the circular game itself
 
 // Create an array to store user button presses
 var gameArray = [];
@@ -38,6 +37,8 @@ function doSetTimeout(idx, delay) {
 }
 
 function cpuShowSequence() {
+    document.getElementsByClassName("score")[0].innerText =
+        (roundNum < 10) ? "0" + roundNum : roundNum;
     for (let i = 0; i < roundNum; i++) {
         doSetTimeout(gameArray[i], calculateTimeDelay()*i);
     }
@@ -90,13 +91,13 @@ function btnClick(btn) {
         if (isCorrect) {
             if (seqNum == roundNum - 1 && roundNum < 20) {
                 roundNum++;
-                document.getElementsByClassName("score")[0].innerText =
-                    (roundNum <= 10) ? "0" + (roundNum - 1) : roundNum - 1;
+                // document.getElementsByClassName("score")[0].innerText =
+                //     (roundNum <= 10) ? "0" + (roundNum - 1) : roundNum - 1;
                 seqNum = -1;
                 timeoutsArray.push(setTimeout(cpuShowSequence, 1000));
             } else if (seqNum == roundNum - 1 && roundNum == 20) {
-                document.getElementsByClassName("score")[0].innerText =
-                    20;
+                // document.getElementsByClassName("score")[0].innerText =
+                //     20;
                 initGame(2, 1);
             }
         } else if (!isCorrect) {
