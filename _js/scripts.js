@@ -72,6 +72,7 @@ function wrongAnswer() {
     if (strictMode) {
         roundNum = 1;
         resetScore();
+        initGame();
     }
     timeoutsArray.push(setTimeout(cpuShowSequence, 1000));
 }
@@ -191,6 +192,7 @@ document.onreadystatechange = function () {
 
     btnArray.forEach(function(e) {
         document.addEventListener("click", btnClick);
+        document.addEventListener("touchend", btnClick);
     });
 
     document.getElementsByClassName("strict")[0].addEventListener("click", toggleStrictMode);
