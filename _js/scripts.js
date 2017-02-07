@@ -1,7 +1,9 @@
+// TODO: add on/off switch?
 // TODO: check sounds for missed plays
 // TODO: make the background into a radial gradient to suggest the circular game itself
 
 // Create an array to store user button presses
+var powerOn = false;
 var gameArray = [];
 var timeoutsArray = [];
 var btnArray = [];
@@ -172,6 +174,18 @@ function resetScore(delay) {
     }
 }
 
+function togglePower() {
+    if (powerOn) {
+        document.getElementsByClassName("switch")[0].classList.remove("switchOn");
+        document.getElementsByClassName("switch")[0].classList.add("switchOff");
+
+    } else {
+        document.getElementsByClassName("switch")[0].classList.remove("switchOff");
+        document.getElementsByClassName("switch")[0].classList.add("switchOn");
+    }
+    powerOn = !powerOn;
+}
+
 document.onreadystatechange = function () {
   if (document.readyState === "complete") {
     btnArray.push(document.getElementsByClassName("btn0")[0]);
@@ -186,6 +200,8 @@ document.onreadystatechange = function () {
     document.getElementsByClassName("strict")[0].addEventListener("click", toggleStrictMode);
 
     document.getElementsByClassName("restart")[0].addEventListener("click", restartGame);
+
+    document.getElementsByClassName("onOffSwitch")[0].addEventListener("click", togglePower);
 
     initGame(5, 3);
   }
