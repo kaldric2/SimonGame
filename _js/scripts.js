@@ -1,8 +1,5 @@
-// TODO: add on/off switch?
 // TODO: check sounds for missed plays
-// TODO: make the background into a radial gradient to suggest the circular game itself
 
-// Create an array to store user button presses
 var powerOn = false;
 var gameArray = [];
 var timeoutsArray = [];
@@ -18,13 +15,11 @@ var seqNum = -1;
 var roundNum = 1;
 var strictMode = 0;
 
-// Computer functions
 function createGameArray() {
     if (gameArray.length > 0) {gameArray = [];}
     for (var i = 0; i < 20; i++) {
         gameArray.push(Math.floor(Math.random() * 4));
     }
-    console.debug(gameArray);
 }
 
 function calculateTimeDelay() {
@@ -46,7 +41,6 @@ function cpuShowSequence() {
     }
 }
 
-// Shared functions
 function lightButton(isCorrect, i) {
     btnArray[i].classList.add(colorClasses[i]);
     playSound(isCorrect, i);
@@ -66,7 +60,6 @@ function playSound(isCorrect, idx) {
     }
 }
 
-// User functions
 function checkSelection(s, i) {
     if (i != gameArray[s]) {
         return false;
