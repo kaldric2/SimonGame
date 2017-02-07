@@ -150,19 +150,21 @@ function restartGame() {
 }
 
 function initGame(spins, flashes, delay=1000) {
-    var numOfSpins = spins;
-    var numOfFlashes = flashes;
-    var scoreDelay = delay * (numOfSpins + numOfFlashes);
-
     timeoutsArray.forEach((e)=>{ clearTimeout(e); });
     timeoutsArray = [];
 
-    fancyShow(numOfSpins, numOfFlashes);
+    if (powerOn) {
+        var numOfSpins = spins;
+        var numOfFlashes = flashes;
+        var scoreDelay = delay * (numOfSpins + numOfFlashes);
 
-    roundNum = 1;
-    createGameArray();
-    resetScore(scoreDelay);
-    timeoutsArray.push(setTimeout(()=>{ cpuShowSequence(); }, scoreDelay + 500));
+        fancyShow(numOfSpins, numOfFlashes);
+
+        roundNum = 1;
+        createGameArray();
+        resetScore(scoreDelay);
+        timeoutsArray.push(setTimeout(()=>{ cpuShowSequence(); }, scoreDelay + 500));
+    }
 }
 
 function resetScore(delay) {
@@ -178,12 +180,13 @@ function togglePower() {
     if (powerOn) {
         document.getElementsByClassName("switch")[0].classList.remove("switchOn");
         document.getElementsByClassName("switch")[0].classList.add("switchOff");
-
     } else {
         document.getElementsByClassName("switch")[0].classList.remove("switchOff");
         document.getElementsByClassName("switch")[0].classList.add("switchOn");
     }
     powerOn = !powerOn;
+    resetScore();
+    initGame(5, 3);
 }
 
 document.onreadystatechange = function () {
