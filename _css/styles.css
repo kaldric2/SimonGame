@@ -1,3 +1,5 @@
+/* TODO: get score to be centered in buttons without being fixed */
+
 @keyframes green {
     from { background-color: rgba(0, 255, 0, 1); }
     to { background-color: rgba(0, 255, 0, 0.5); }
@@ -68,7 +70,8 @@ header {
         "Fira Sans", "Droid Sans", "Helvetica Neue",
         sans-serif;
     text-align: center;
-    position: fixed;
+    /*position: fixed;*/
+    position: absolute;
     height: 56px;
     transform: translateY(-28px);
     right: 0;
