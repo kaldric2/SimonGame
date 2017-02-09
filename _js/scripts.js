@@ -1,5 +1,3 @@
-// TODO: check sounds for missed plays
-
 var powerOn = false;
 var gameArray = [];
 var timeoutsArray = [];
