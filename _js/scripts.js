@@ -25,8 +25,8 @@ function createGameArray() {
 function calculateTimeDelay() {
     if (roundNum < 5) { return 1000; }
     else if (roundNum < 9) { return 750; }
-    else if (roundNum < 13) { return 500; }
-    else { return 250; }
+    else if (roundNum < 13) { return 600; }
+    else { return 400; }
 }
 
 function doSetTimeout(idx, delay) {
@@ -34,10 +34,14 @@ function doSetTimeout(idx, delay) {
 }
 
 function cpuShowSequence() {
+    removeBtnListeners();
     document.getElementsByClassName("score")[0].innerText =
         (roundNum < 10) ? "0" + roundNum : roundNum;
     for (let i = 0; i < roundNum; i++) {
         doSetTimeout(gameArray[i], calculateTimeDelay()*i);
+        if (i === roundNum - 1) {
+            timeoutsArray.push(setTimeout(() => { addBtnListeners() }, calculateTimeDelay()*i));
+        }
     }
 }
 
@@ -74,7 +78,7 @@ function wrongAnswer() {
         resetScore();
         initGame();
     }
-    timeoutsArray.push(setTimeout(cpuShowSequence, 1000));
+    timeoutsArray.push(setTimeout(cpuShowSequence, 1500));
 }
 
 function btnClick(btn) {
@@ -94,7 +98,7 @@ function btnClick(btn) {
             } else if (seqNum == roundNum - 1 && roundNum == 20) {
                 // document.getElementsByClassName("score")[0].innerText =
                 //     20;
-                initGame(2, 1);
+                timeoutsArray.push(setTimeout(initGame(2, 1), 1000));
             }
         } else if (!isCorrect) {
             wrongAnswer();
@@ -154,7 +158,7 @@ function initGame(spins, flashes, delay=1000) {
 
         fancyShow(numOfSpins, numOfFlashes);
 
-        roundNum = 1;
+        roundNum = 20;
         createGameArray();
         resetScore(scoreDelay);
         timeoutsArray.push(setTimeout(()=>{ cpuShowSequence(); }, scoreDelay + 500));
@@ -183,6 +187,20 @@ function togglePower() {
     initGame(5, 3);
 }
 
+function addBtnListeners() {
+    btnArray.forEach(function(e) {
+        e.addEventListener("click", btnClick);
+        e.addEventListener("touchend", btnClick);
+    });
+}
+
+function removeBtnListeners() {
+    btnArray.forEach(function(e) {
+        e.removeEventListener("click", btnClick);
+        e.removeEventListener("touchend", btnClick);
+    });
+}
+
 document.onreadystatechange = function () {
   if (document.readyState === "complete") {
     btnArray.push(document.getElementsByClassName("btn0")[0]);
@@ -190,10 +208,7 @@ document.onreadystatechange = function () {
     btnArray.push(document.getElementsByClassName("btn2")[0]);
     btnArray.push(document.getElementsByClassName("btn3")[0]);
 
-    btnArray.forEach(function(e) {
-        document.addEventListener("click", btnClick);
-        document.addEventListener("touchend", btnClick);
-    });
+    addBtnListeners();
 
     document.getElementsByClassName("strict")[0].addEventListener("click", toggleStrictMode);
 
